@@ -3,12 +3,13 @@ variable "dx_private_virtual_interfaces" {
 Map of dx_private_virtual_interfaces, attributes below
 Required:
     - address_family
-    - bgp_asn
     - connection_id
     - name
     - vlan
 Optional:
     - amazon_address
+    - bgp_asn
+    - bgp_asn_long
     - bgp_auth_key
     - customer_address
     - dx_gateway_id
@@ -22,11 +23,12 @@ EOT
 
   type = map(object({
     address_family   = string
-    bgp_asn          = number
     connection_id    = string
     name             = string
     vlan             = number
     amazon_address   = optional(string)
+    bgp_asn          = optional(number)
+    bgp_asn_long     = optional(string)
     bgp_auth_key     = optional(string)
     customer_address = optional(string)
     dx_gateway_id    = optional(string)
@@ -53,6 +55,6 @@ EOT
     ])
     error_message = "must be between 1 and 4094"
   }
-  # Note: 1 additional provider-side validator is enforced at apply time but not mirrored as validation{} blocks here (bespoke or non-mechanically-translatable).
+  # Note: 3 additional provider-side validators are enforced at apply time but not mirrored as validation{} blocks here (bespoke or non-mechanically-translatable).
 }
 
